@@ -1,0 +1,32 @@
+#
+# Copyright (c) 2026 - for information on the respective copyright owner
+# see the NOTICE file and/or the repository https://github.com/carbynestack/mp-spdz-integration.
+#
+# SPDX-License-Identifier: Apache-2.0
+#
+name: Build and test Go module
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - 'master'
+  pull_request:
+    branches:
+      - 'master'
+jobs:
+  test:
+    runs-on: ubuntu-22.04
+    strategy:
+      matrix:
+        go: ['1.18', 'stable']
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version: ${{ matrix.go }}
+      - name: Check formatting
+        run: test -z "$(gofmt -l .)"
+      - name: Vet
+        run: go vet ./...
+      - name: Test
+        run: go test -race -cover ./...
