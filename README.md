@@ -8,7 +8,7 @@ Stack microservices. It converts big integers to and from the MP-SPDZ internal
 ## Usage
 
 ```go
-import mpspdz "github.com/carbynestack/mp-spdz-integration-go"
+import mpspdz "github.com/Samrat7745/mp-spdz-integration"
 
 u, err := mpspdz.New(prime, r, rInv) // *big.Int parameters
 gfp, err := u.ToGfp(big.NewInt(42))  // 16-byte MP-SPDZ representation
